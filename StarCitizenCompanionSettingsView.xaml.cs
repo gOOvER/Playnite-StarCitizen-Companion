@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Playnite.SDK;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace StarCitizenCompanion
 {
@@ -20,6 +9,18 @@ namespace StarCitizenCompanion
         public StarCitizenCompanionSettingsView()
         {
             InitializeComponent();
+        }
+
+        private void BrowseSCLogMate_Click(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is StarCitizenCompanionSettingsViewModel vm)
+            {
+                var res = API.Instance.Dialogs.SelectFile("SCLogMate.exe|SCLogMate.exe|Alle Dateien (*.*)|*.*");
+                if (!string.IsNullOrEmpty(res))
+                {
+                    vm.Settings.SCLogMatePath = res;
+                }
+            }
         }
     }
 }
