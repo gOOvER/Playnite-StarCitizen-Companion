@@ -1,0 +1,10 @@
+Id: StarCitizenCompanion_24a1d01b-6c77-42d6-a16a-428e6216e5be
+Name: Star Citizen Companion
+Author: gOOvER
+Version: 0.1.0
+Module: StarCitizenCompanion.dll
+Type: GenericPlugin
+Icon: icon.png
+Links:
+  - Name: GitHub
+    Url: https://github.com/gOOvER/Playnite-StarCitizen-Companion
