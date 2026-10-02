@@ -145,12 +145,100 @@ namespace StarCitizenCompanion
             yield return new GameMenuItem
             {
                 MenuSection = "Star Citizen Tools",
+                Description = "📊 DisplayInfo: FPS & Server-Tickrate (Level 1)",
+                Action = (a) =>
+                {
+                    GameMaintenance.SetDisplayInfo(firstGame.InstallDirectory, 1);
+                    PlayniteApi.Dialogs.ShowMessage(
+                        "r_displayinfo = 1 wurde in user.cfg gesetzt.\n\nBeim nächsten Start werden FPS, Ping und Server-Tickrate angezeigt.",
+                        "Star Citizen Settings",
+                        System.Windows.MessageBoxButton.OK,
+                        System.Windows.MessageBoxImage.Information
+                    );
+                }
+            };
+
+            yield return new GameMenuItem
+            {
+                MenuSection = "Star Citizen Tools",
+                Description = "📊 DisplayInfo: Erweiterte Diagnose (Level 3)",
+                Action = (a) =>
+                {
+                    GameMaintenance.SetDisplayInfo(firstGame.InstallDirectory, 3);
+                    PlayniteApi.Dialogs.ShowMessage(
+                        "r_displayinfo = 3 wurde in user.cfg gesetzt.\n\nErweiterte Rendering- und Streaming-Diagnose aktiv.",
+                        "Star Citizen Settings",
+                        System.Windows.MessageBoxButton.OK,
+                        System.Windows.MessageBoxImage.Information
+                    );
+                }
+            };
+
+            yield return new GameMenuItem
+            {
+                MenuSection = "Star Citizen Tools",
+                Description = "📊 DisplayInfo: Deaktivieren (Level 0)",
+                Action = (a) =>
+                {
+                    GameMaintenance.SetDisplayInfo(firstGame.InstallDirectory, 0);
+                    PlayniteApi.Dialogs.ShowMessage(
+                        "r_displayinfo = 0 wurde in user.cfg gesetzt.\n\nDisplayInfo ist deaktiviert.",
+                        "Star Citizen Settings",
+                        System.Windows.MessageBoxButton.OK,
+                        System.Windows.MessageBoxImage.Information
+                    );
+                }
+            };
+
+            yield return new GameMenuItem
+            {
+                MenuSection = "Star Citizen Tools",
+                Description = "⚙️ user.cfg bearbeiten",
+                Action = (a) =>
+                {
+                    GameMaintenance.OpenUserCfg(firstGame.InstallDirectory);
+                }
+            };
+
+            yield return new GameMenuItem
+            {
+                MenuSection = "Star Citizen Tools",
+                Description = "📜 Game.log ansehen",
+                Action = (a) =>
+                {
+                    GameMaintenance.OpenGameLog(firstGame.InstallDirectory);
+                }
+            };
+
+            yield return new GameMenuItem
+            {
+                MenuSection = "Star Citizen Tools",
+                Description = "📂 Log-Backups im Explorer öffnen",
+                Action = (a) =>
+                {
+                    GameMaintenance.OpenLogBackupsFolder(firstGame.InstallDirectory);
+                }
+            };
+
+            yield return new GameMenuItem
+            {
+                MenuSection = "Star Citizen Tools",
+                Description = "📸 Screenshots-Ordner öffnen",
+                Action = (a) =>
+                {
+                    GameMaintenance.OpenScreenshotsFolder(firstGame.InstallDirectory);
+                }
+            };
+
+            yield return new GameMenuItem
+            {
+                MenuSection = "Star Citizen Tools",
                 Description = "🧹 Shader-Cache bereinigen",
                 Action = (a) =>
                 {
                     var count = GameMaintenance.ClearShaderCache();
                     PlayniteApi.Dialogs.ShowMessage(
-                        $"Shader-Cache wurde bereinigt ({count} Elemente gelöscht).",
+                        string.Format("Shader-Cache wurde bereinigt ({0} Elemente gelöscht).", count),
                         "Star Citizen Wartung",
                         System.Windows.MessageBoxButton.OK,
                         System.Windows.MessageBoxImage.Information
@@ -189,16 +277,6 @@ namespace StarCitizenCompanion
             yield return new GameMenuItem
             {
                 MenuSection = "Star Citizen Tools",
-                Description = "📸 Screenshots-Ordner öffnen",
-                Action = (a) =>
-                {
-                    GameMaintenance.OpenScreenshotsFolder(firstGame.InstallDirectory);
-                }
-            };
-
-            yield return new GameMenuItem
-            {
-                MenuSection = "Star Citizen Tools",
                 Description = "🚀 SCLogMate öffnen",
                 Action = (a) =>
                 {
@@ -213,6 +291,26 @@ namespace StarCitizenCompanion
                 Action = (a) =>
                 {
                     Process.Start(new ProcessStartInfo("https://www.erkul.games/live/calculator") { UseShellExecute = true });
+                }
+            };
+
+            yield return new GameMenuItem
+            {
+                MenuSection = "Star Citizen Tools",
+                Description = "🌐 SC-Trade Tools (Handelsrouten)",
+                Action = (a) =>
+                {
+                    Process.Start(new ProcessStartInfo("https://sc-trade.tools/") { UseShellExecute = true });
+                }
+            };
+
+            yield return new GameMenuItem
+            {
+                MenuSection = "Star Citizen Tools",
+                Description = "📰 CIG Patch Notes (Comm-Link)",
+                Action = (a) =>
+                {
+                    Process.Start(new ProcessStartInfo("https://robertsspaceindustries.com/comm-link") { UseShellExecute = true });
                 }
             };
         }

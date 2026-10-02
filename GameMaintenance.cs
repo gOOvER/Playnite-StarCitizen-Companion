@@ -2,6 +2,7 @@ using Playnite.SDK;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace StarCitizenCompanion
 {
@@ -51,8 +52,9 @@ namespace StarCitizenCompanion
         {
             var candidates = new[]
             {
-                Path.Combine(gameInstallDir ?? "", "screenshots"),
                 Path.Combine(gameInstallDir ?? "", "ScreenShots"),
+                Path.Combine(gameInstallDir ?? "", "screenshots"),
+                @"J:\StarCitizen\LIVE\ScreenShots",
                 @"J:\StarCitizen\LIVE\screenshots"
             };
 
@@ -60,7 +62,64 @@ namespace StarCitizenCompanion
             {
                 if (Directory.Exists(path))
                 {
-                    Process.Start("explorer.exe", path);
+                    Process.Start("explorer.exe", "\"" + path + "\"");
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static bool OpenLogBackupsFolder(string gameInstallDir)
+        {
+            var candidates = new[]
+            {
+                Path.Combine(gameInstallDir ?? "", "logbackups"),
+                @"J:\StarCitizen\LIVE\logbackups"
+            };
+
+            foreach (var path in candidates)
+            {
+                if (Directory.Exists(path))
+                {
+                    Process.Start("explorer.exe", "\"" + path + "\"");
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static bool OpenGameLog(string gameInstallDir)
+        {
+            var candidates = new[]
+            {
+                Path.Combine(gameInstallDir ?? "", "Game.log"),
+                @"J:\StarCitizen\LIVE\Game.log"
+            };
+
+            foreach (var file in candidates)
+            {
+                if (File.Exists(file))
+                {
+                    Process.Start("notepad.exe", "\"" + file + "\"");
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static bool OpenUserCfg(string gameInstallDir)
+        {
+            var candidates = new[]
+            {
+                Path.Combine(gameInstallDir ?? "", "user.cfg"),
+                @"J:\StarCitizen\LIVE\user.cfg"
+            };
+
+            foreach (var file in candidates)
+            {
+                if (File.Exists(file))
+                {
+                    Process.Start("notepad.exe", "\"" + file + "\"");
                     return true;
                 }
             }
@@ -81,12 +140,50 @@ namespace StarCitizenCompanion
                 {
                     var backupDir = Path.Combine(Path.GetDirectoryName(file), "Backups");
                     Directory.CreateDirectory(backupDir);
-                    var dest = Path.Combine(backupDir, $"actionmaps_{DateTime.Now:yyyyMMdd_HHmmss}.xml");
+                    var dest = Path.Combine(backupDir, string.Format("actionmaps_{0:yyyyMMdd_HHmmss}.xml", DateTime.Now));
                     File.Copy(file, dest, true);
                     return true;
                 }
             }
             return false;
+        }
+
+        public static void SetDisplayInfo(string gameInstallDir, int level)
+        {
+            var candidates = new[]
+            {
+                Path.Combine(gameInstallDir ?? "", "user.cfg"),
+                @"J:\StarCitizen\LIVE\user.cfg"
+            };
+
+            foreach (var cfgPath in candidates)
+            {
+                var dir = Path.GetDirectoryName(cfgPath);
+                if (!Directory.Exists(dir)) continue;
+
+                var displayInfoLine = string.Format("r_displayinfo = {0}", level);
+
+                if (File.Exists(cfgPath))
+                {
+                    var text = File.ReadAllText(cfgPath);
+                    var regex = new Regex(@"^\s*r_displayinfo\s*=.*$", RegexOptions.Multiline | RegexOptions.IgnoreCase);
+                    string updated;
+                    if (regex.IsMatch(text))
+                    {
+                        updated = regex.Replace(text, displayInfoLine);
+                    }
+                    else
+                    {
+                        updated = text.TrimEnd() + "\r\n" + displayInfoLine + "\r\n";
+                    }
+                    File.WriteAllText(cfgPath, updated);
+                }
+                else
+                {
+                    File.WriteAllText(cfgPath, displayInfoLine + "\r\n");
+                }
+                break;
+            }
         }
     }
 }
