@@ -95,6 +95,20 @@ namespace StarCitizenCompanion
             }
         }
 
+        public override IEnumerable<SidebarItem> GetSidebarItems()
+        {
+            var iconPath = Path.Combine(GetPluginFolder(), "icon.png");
+
+            yield return new SidebarItem
+            {
+                Title = "Star Citizen Companion",
+                Icon = iconPath,
+                Type = SiderbarItemType.View,
+                Visible = true,
+                Opened = () => new StarCitizenCompanionSidebarView(PlayniteApi, settings)
+            };
+        }
+
         public override IEnumerable<TopPanelItem> GetTopPanelItems()
         {
             if (!settings.Settings.ShowRsiStatusTopPanel) yield break;
