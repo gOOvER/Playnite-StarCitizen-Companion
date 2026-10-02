@@ -10,6 +10,7 @@ namespace StarCitizenCompanion
         private bool showFlightDebrief = true;
         private bool showRsiStatusTopPanel = true;
         private string scLogMatePath = @"X:\Projekte\SCVerse\SCLogMate\publish\SCLogMate.exe";
+        private int displayInfoIndex = 0; // 0 = Deaktiviert, 1 = Level 1, 2 = Level 3
 
         public bool AutoStartSCLogMate
         {
@@ -34,11 +35,27 @@ namespace StarCitizenCompanion
             get => scLogMatePath;
             set => SetValue(ref scLogMatePath, value);
         }
+
+        public int DisplayInfoIndex
+        {
+            get => displayInfoIndex;
+            set => SetValue(ref displayInfoIndex, value);
+        }
+
+        public int GetDisplayInfoLevel()
+        {
+            switch (displayInfoIndex)
+            {
+                case 1: return 1;
+                case 2: return 3;
+                default: return 0;
+            }
+        }
     }
 
     public class StarCitizenCompanionSettingsViewModel : ObservableObject, ISettings
     {
-        private readonly StarCitizenCompanion plugin;
+        public readonly StarCitizenCompanion Plugin;
         private StarCitizenCompanionSettings editingClone { get; set; }
 
         private StarCitizenCompanionSettings settings;
@@ -54,7 +71,7 @@ namespace StarCitizenCompanion
 
         public StarCitizenCompanionSettingsViewModel(StarCitizenCompanion plugin)
         {
-            this.plugin = plugin;
+            Plugin = plugin;
             var savedSettings = plugin.LoadPluginSettings<StarCitizenCompanionSettings>();
             if (savedSettings != null)
             {
@@ -78,7 +95,7 @@ namespace StarCitizenCompanion
 
         public void EndEdit()
         {
-            plugin.SavePluginSettings(Settings);
+            Plugin.SavePluginSettings(Settings);
         }
 
         public bool VerifySettings(out List<string> errors)

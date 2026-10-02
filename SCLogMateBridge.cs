@@ -89,18 +89,21 @@ namespace StarCitizenCompanion
         public static long GetCurrentBalance()
         {
             var settingsPath = GetSettingsPath();
-            if (settingsPath != null)
+            if (settingsPath != null && File.Exists(settingsPath))
             {
                 try
                 {
                     var text = File.ReadAllText(settingsPath);
-                    var match = Regex.Match(text, @"[""']Balance[""']s*:s*(d+)");
+                    var match = Regex.Match(text, "\"Balance\"\\s*:\\s*(\\d+)");
                     if (match.Success && long.TryParse(match.Groups[1].Value, out var bal))
                     {
                         return bal;
                     }
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    logger.Warn(ex, "Failed to read balance from settings");
+                }
             }
             return 0;
         }

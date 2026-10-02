@@ -44,7 +44,7 @@ namespace StarCitizenCompanion
             {
                 var status = await RsiStatusService.GetStatusAsync(true);
                 TxtRsiStatus.Text = status.GetStatusText();
-                TxtRsiStatus.Foreground = status.SummaryStatus == RsiSystemStatus.Operational 
+                TxtRsiStatus.Foreground = (status.SummaryStatus == RsiSystemStatus.Operational)
                     ? new SolidColorBrush((Color)ColorConverter.ConvertFromString("#81c784"))
                     : new SolidColorBrush((Color)ColorConverter.ConvertFromString("#e57373"));
 
@@ -78,7 +78,7 @@ namespace StarCitizenCompanion
             }
             else
             {
-                TxtWalletBalance.Text = "Kein Kontostand in settings.json hinterlegt.";
+                TxtWalletBalance.Text = "Noch kein Kontostand erfasst (wird nach erster Session aktualisiert)";
             }
         }
 
@@ -147,27 +147,9 @@ namespace StarCitizenCompanion
             GameMaintenance.OpenGameLog(_defaultLiveDir);
         }
 
-        private void BtnOpenUserCfg_Click(object sender, RoutedEventArgs e)
+        private void BtnOpenSettings_Click(object sender, RoutedEventArgs e)
         {
-            GameMaintenance.OpenUserCfg(_defaultLiveDir);
-        }
-
-        private void BtnDisplayInfo0_Click(object sender, RoutedEventArgs e)
-        {
-            GameMaintenance.SetDisplayInfo(_defaultLiveDir, 0);
-            _api.Dialogs.ShowMessage("r_displayinfo = 0 (Deaktiviert) in user.cfg gesetzt.", "DisplayInfo", MessageBoxButton.OK, MessageBoxImage.Information);
-        }
-
-        private void BtnDisplayInfo1_Click(object sender, RoutedEventArgs e)
-        {
-            GameMaintenance.SetDisplayInfo(_defaultLiveDir, 1);
-            _api.Dialogs.ShowMessage("r_displayinfo = 1 (FPS & Server-Tickrate) in user.cfg gesetzt.", "DisplayInfo", MessageBoxButton.OK, MessageBoxImage.Information);
-        }
-
-        private void BtnDisplayInfo3_Click(object sender, RoutedEventArgs e)
-        {
-            GameMaintenance.SetDisplayInfo(_defaultLiveDir, 3);
-            _api.Dialogs.ShowMessage("r_displayinfo = 3 (Erweiterte Diagnose) in user.cfg gesetzt.", "DisplayInfo", MessageBoxButton.OK, MessageBoxImage.Information);
+            _api.MainView.OpenPluginSettings(_settings.Plugin.Id);
         }
 
         private void BtnOpenErkul_Click(object sender, RoutedEventArgs e)

@@ -4,13 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="750" d:DesignWidth="650">
+             d:DesignHeight="700" d:DesignWidth="650">
     <Grid Margin="24">
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
             <StackPanel>
                 <!-- Title Header -->
                 <TextBlock Text="🚀 Star Citizen Companion" FontSize="26" FontWeight="Bold" Foreground="#4fc3f7" Margin="0,0,0,8" />
-                <TextBlock Text="Echtzeit-Serverstatus, SCLogMate-Kopplung und Schnellwartungs-Tools" FontSize="13" Foreground="#9e9e9e" Margin="0,0,0,20" />
+                <TextBlock Text="Echtzeit-Serverstatus, SCLogMate-Kopplung und Wartungs-Tools" FontSize="13" Foreground="#9e9e9e" Margin="0,0,0,20" />
 
                 <!-- RSI Server Status Card -->
                 <Border Background="#1e222b" CornerRadius="8" Padding="16" Margin="0,0,0,16" BorderBrush="#2c3240" BorderThickness="1">
@@ -30,7 +30,7 @@
                     <StackPanel>
                         <TextBlock Text="📊 SCLogMate Integration" FontSize="16" FontWeight="SemiBold" Foreground="#ffffff" Margin="0,0,0,10" />
                         <TextBlock x:Name="TxtLogMateStatus" Text="Prüfe SCLogMate..." FontSize="13" Foreground="#e0e0e0" Margin="0,0,0,6" />
-                        <TextBlock x:Name="TxtWalletBalance" Text="" FontSize="13" FontWeight="Bold" Foreground="#ffca28" Margin="0,0,0,12" />
+                        <TextBlock x:Name="TxtWalletBalance" Text="" FontSize="14" FontWeight="Bold" Foreground="#ffca28" Margin="0,0,0,12" />
                         <StackPanel Orientation="Horizontal">
                             <Button Content="🚀 SCLogMate starten" Click="BtnStartSCLogMate_Click" Padding="12,5" Margin="0,0,10,0" />
                             <Button Content="📂 sessions.db Ordner öffnen" Click="BtnOpenSessionsFolder_Click" Padding="12,5" />
@@ -41,24 +41,16 @@
                 <!-- Quick Maintenance Tools -->
                 <Border Background="#1e222b" CornerRadius="8" Padding="16" Margin="0,0,0,16" BorderBrush="#2c3240" BorderThickness="1">
                     <StackPanel>
-                        <TextBlock Text="🛠️ Schnellwartung &amp; Tools" FontSize="16" FontWeight="SemiBold" Foreground="#ffffff" Margin="0,0,0,12" />
+                        <TextBlock Text="🛠️ Schnellwartung &amp; Diagnose" FontSize="16" FontWeight="SemiBold" Foreground="#ffffff" Margin="0,0,0,12" />
                         
-                        <WrapPanel Orientation="Horizontal" Margin="0,0,0,12">
+                        <WrapPanel Orientation="Horizontal">
                             <Button Content="🧹 Shader-Cache leeren" Click="BtnClearShader_Click" Padding="12,6" Margin="0,0,10,8" />
                             <Button Content="💾 Tastenbelegung sichern" Click="BtnBackupKeybinds_Click" Padding="12,6" Margin="0,0,10,8" />
                             <Button Content="📸 Screenshots öffnen" Click="BtnOpenScreenshots_Click" Padding="12,6" Margin="0,0,10,8" />
                             <Button Content="📂 Log-Backups öffnen" Click="BtnOpenLogBackups_Click" Padding="12,6" Margin="0,0,10,8" />
                             <Button Content="📜 Game.log ansehen" Click="BtnOpenGameLog_Click" Padding="12,6" Margin="0,0,10,8" />
-                            <Button Content="⚙️ user.cfg bearbeiten" Click="BtnOpenUserCfg_Click" Padding="12,6" Margin="0,0,10,8" />
+                            <Button Content="⚙️ Companion-Einstellungen..." Click="BtnOpenSettings_Click" Padding="12,6" Margin="0,0,10,8" />
                         </WrapPanel>
-
-                        <!-- DisplayInfo Presets -->
-                        <TextBlock Text="DisplayInfo Ingame-Anzeige:" FontWeight="SemiBold" Foreground="#b0bec5" Margin="0,4,0,8" />
-                        <StackPanel Orientation="Horizontal">
-                            <Button Content="Aus (0)" Click="BtnDisplayInfo0_Click" Padding="10,4" Margin="0,0,8,0" />
-                            <Button Content="Level 1 (FPS &amp; Ping)" Click="BtnDisplayInfo1_Click" Padding="10,4" Margin="0,0,8,0" />
-                            <Button Content="Level 3 (Diagnose)" Click="BtnDisplayInfo3_Click" Padding="10,4" Margin="0,0,8,0" />
-                        </StackPanel>
                     </StackPanel>
                 </Border>
 
