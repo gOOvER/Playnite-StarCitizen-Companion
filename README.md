@@ -44,6 +44,14 @@ A powerful Playnite generic plugin that integrates **SCLogMate**, live **RSI ser
 
 ---
 
+## Support & Donate
+
+If you enjoy this plugin and want to support its ongoing development, feel free to buy me a coffee:
+
+[![Ko-fi](https://img.shields.io/badge/Ko--fi-F16061?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/goover)
+
+---
+
 ## License
 
-GPL-3.0 or later / MIT
+This project is licensed under the **GNU Affero General Public License v3.0 (AGPL-3.0)**. See [LICENSE](LICENSE) for details.
