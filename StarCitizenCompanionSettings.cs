@@ -6,7 +6,7 @@ namespace StarCitizenCompanion
 {
     public class StarCitizenCompanionSettings : ObservableObject
     {
-        private bool autoStartSCLogMate = true;
+        private bool autoStartSCLogMate = false;
         private bool showFlightDebrief = true;
         private bool showRsiStatusTopPanel = true;
         private string scLogMatePath = @"X:\Projekte\SCVerse\SCLogMate\publish\SCLogMate.exe";
