@@ -12,7 +12,7 @@
         <CheckBox Content="SCLogMate automatisch im Hintergrund starten, wenn Star Citizen startet" 
                   IsChecked="{Binding Settings.AutoStartSCLogMate}" Margin="0,0,0,8"/>
 
-        <CheckBox Content="Nach Spielende Flugbericht (aUEC Gewinn/Verlust, Schiff, Dauer) als Benachrichtigung anzeigen" 
+        <CheckBox Content="Nach Spielende Flugbericht im Flugbuch (Markdown &amp; Seitenleiste) erfassen" 
                   IsChecked="{Binding Settings.ShowFlightDebrief}" Margin="0,0,0,15"/>
 
         <TextBlock Text="SCLogMate.exe Pfad (optional):" FontWeight="SemiBold" Margin="0,5,0,2"/>

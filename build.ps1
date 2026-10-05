@@ -15,25 +15,7 @@ if (Test-Path $toolbox) {
 
     # Rename to clean versioned name (e.g. StarCitizenCompanion_v0.1.0.pext)
     $version = if ((Get-Content (Join-Path $outDir 'extension.yaml') -Raw) -match '(?m)^Version:\s*([^\r\n]+)') { $Matches[1].Trim() } else { "0.1.0" }
-    $rawPext = Get-ChildItem -Path $root -Filter "*.pext" | Where-Object { param([string]$Configuration = 'Release')
-$ErrorActionPreference = 'Stop'
-$root = $PSScriptRoot
-
-Write-Host "==> Building StarCitizenCompanion ($Configuration)..." -ForegroundColor Cyan
-dotnet build (Join-Path $root 'StarCitizenCompanion.csproj') -c $Configuration -m:4
-if ($LASTEXITCODE -ne 0) { throw "Build failed." }
-
-$outDir = Join-Path $root "bin\\$Configuration\\net462"
-$toolbox = "$env:LOCALAPPDATA\\Playnite\\Toolbox.exe"
-if (Test-Path $toolbox) {
-    Write-Host "==> Packaging extension (.pext)..." -ForegroundColor Cyan
-    & $toolbox pack $outDir $root
-    if ($LASTEXITCODE -ne 0) { throw "Packaging failed." }
-    Write-Host "==> Successfully packaged .pext in $root" -ForegroundColor Green
-} else {
-    Write-Host "Toolbox.exe not found at $toolbox; skipping packaging." -ForegroundColor Yellow
-}
-.Name -like "*StarCitizenCompanion*" } | Select-Object -First 1
+    $rawPext = Get-ChildItem -Path $root -Filter "*.pext" | Where-Object { $_.Name -like "*StarCitizenCompanion*" } | Select-Object -First 1
     if ($rawPext) {
         $cleanName = "StarCitizenCompanion_v${version}.pext"
         Rename-Item $rawPext.FullName -NewName $cleanName -Force

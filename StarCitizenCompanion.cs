@@ -75,21 +75,7 @@ namespace StarCitizenCompanion
                     var debrief = SCLogMateBridge.GetLatestDebrief();
                     if (debrief != null)
                     {
-                        var durationStr = string.Format("{0:D2}h {1:D2}m", (int)debrief.Duration.TotalHours, debrief.Duration.Minutes);
-                        var profitStr = debrief.Profit >= 0 ? $"+{debrief.Profit:N0}" : $"{debrief.Profit:N0}";
-                        var shipStr = !string.IsNullOrEmpty(debrief.LastShip) ? debrief.LastShip : "Unbekanntes Schiff";
-
-                        var message = $"🚀 Schiff: {shipStr}\n" +
-                                      $"⏱️ Flugzeit: {durationStr}\n" +
-                                      $"💰 Bilanz: {profitStr} aUEC\n" +
-                                      $"🎯 Missionen: {debrief.MissionsCompleted} | 💀 Tode: {debrief.Deaths}\n" +
-                                      $"🏦 Neuer Kontostand: {debrief.CurrentBalance:N0} aUEC";
-
-                        PlayniteApi.Notifications.Add(new NotificationMessage(
-                            $"sc_debrief_{DateTime.Now.Ticks}",
-                            $"Star Citizen · Flugbericht ({args.Game.Name})\n{message}",
-                            NotificationType.Info
-                        ));
+                        FlightLogStorage.AppendDebrief(GetPluginUserDataPath(), debrief, args.Game.Name);
                     }
                 });
             }

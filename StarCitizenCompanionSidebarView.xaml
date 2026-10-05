@@ -38,6 +38,36 @@
                     </StackPanel>
                 </Border>
 
+                <!-- Letzter Flugbericht Card -->
+                <Border Background="#1e222b" CornerRadius="8" Padding="16" Margin="0,0,0,16" BorderBrush="#2c3240" BorderThickness="1">
+                    <StackPanel>
+                        <DockPanel Margin="0,0,0,10">
+                            <TextBlock Text="🚀 Letzter Flugbericht" FontSize="16" FontWeight="SemiBold" Foreground="#ffffff" DockPanel.Dock="Left" VerticalAlignment="Center"/>
+                            <Button x:Name="BtnOpenFlightLog" Content="📜 Flugbuch öffnen (Markdown)" Click="BtnOpenFlightLog_Click" HorizontalAlignment="Right" Padding="10,4" />
+                        </DockPanel>
+
+                        <StackPanel x:Name="PnlFlightDetails">
+                            <TextBlock x:Name="TxtDebriefSession" Text="Kein Flugbericht vorhanden." FontSize="13" Foreground="#81c784" FontWeight="SemiBold" Margin="0,0,0,6" />
+                            <Grid Margin="0,0,0,8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0">
+                                    <TextBlock x:Name="TxtDebriefShip" Text="🚀 Schiff: —" FontSize="12" Foreground="#e0e0e0" Margin="0,0,0,4" />
+                                    <TextBlock x:Name="TxtDebriefDuration" Text="⏱️ Flugzeit: —" FontSize="12" Foreground="#e0e0e0" Margin="0,0,0,4" />
+                                    <TextBlock x:Name="TxtDebriefMissions" Text="🎯 Missionen: —" FontSize="12" Foreground="#e0e0e0" />
+                                </StackPanel>
+                                <StackPanel Grid.Column="1">
+                                    <TextBlock x:Name="TxtDebriefProfit" Text="💰 Bilanz: —" FontSize="12" FontWeight="Bold" Foreground="#ffca28" Margin="0,0,0,4" />
+                                    <TextBlock x:Name="TxtDebriefCombat" Text="⚔️ Kills: 0 | 💀 Tode: 0" FontSize="12" Foreground="#e0e0e0" Margin="0,0,0,4" />
+                                    <TextBlock x:Name="TxtDebriefBalance" Text="🏦 Kontostand: —" FontSize="12" Foreground="#e0e0e0" />
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
                 <!-- Quick Maintenance Tools -->
                 <Border Background="#1e222b" CornerRadius="8" Padding="16" Margin="0,0,0,16" BorderBrush="#2c3240" BorderThickness="1">
                     <StackPanel>

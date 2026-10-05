@@ -33,6 +33,66 @@ namespace StarCitizenCompanion
         {
             await LoadRsiStatusAsync();
             LoadSCLogMateInfo();
+            LoadFlightDebriefInfo();
+        }
+
+        private void LoadFlightDebriefInfo()
+        {
+            try
+            {
+                var debrief = SCLogMateBridge.GetLatestDebrief();
+                if (debrief != null)
+                {
+                    var durationStr = string.Format("{0:D2}h {1:D2}m", (int)debrief.Duration.TotalHours, debrief.Duration.Minutes);
+                    var profitStr = debrief.Profit >= 0 ? $"+{debrief.Profit:N0}" : $"{debrief.Profit:N0}";
+                    var shipStr = !string.IsNullOrEmpty(debrief.LastShip) ? debrief.LastShip : "Unbekanntes Schiff";
+                    var timeStr = debrief.EndTime?.ToLocalTime().ToString("dd.MM.yyyy HH:mm") ?? debrief.StartTime?.ToLocalTime().ToString("dd.MM.yyyy HH:mm") ?? "Kürzlich";
+
+                    TxtDebriefSession.Text = $"Session: {debrief.SessionName} ({timeStr})";
+                    TxtDebriefShip.Text = $"🚀 Schiff: {shipStr}";
+                    TxtDebriefDuration.Text = $"⏱️ Flugzeit: {durationStr}";
+                    TxtDebriefMissions.Text = $"🎯 Missionen: {debrief.MissionsCompleted}";
+                    TxtDebriefProfit.Text = $"💰 Bilanz: {profitStr} aUEC";
+                    TxtDebriefProfit.Foreground = debrief.Profit >= 0
+                        ? new SolidColorBrush((Color)ColorConverter.ConvertFromString("#81c784"))
+                        : new SolidColorBrush((Color)ColorConverter.ConvertFromString("#e57373"));
+                    TxtDebriefCombat.Text = $"⚔️ Kills: {debrief.Kills} | 💀 Tode: {debrief.Deaths}";
+                    TxtDebriefBalance.Text = $"🏦 Kontostand: {debrief.CurrentBalance:N0} aUEC";
+                }
+                else
+                {
+                    TxtDebriefSession.Text = "Noch kein Flugbericht in SCLogMate erfasst.";
+                }
+            }
+            catch
+            {
+                TxtDebriefSession.Text = "Fehler beim Laden des Flugberichts.";
+            }
+        }
+
+        private void BtnOpenFlightLog_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var logPath = FlightLogStorage.GetFlightLogPath(_settings.Plugin.GetPluginUserDataPath());
+                if (!File.Exists(logPath))
+                {
+                    var debrief = SCLogMateBridge.GetLatestDebrief();
+                    if (debrief != null)
+                    {
+                        FlightLogStorage.AppendDebrief(_settings.Plugin.GetPluginUserDataPath(), debrief, "Star Citizen");
+                    }
+                    else
+                    {
+                        File.WriteAllText(logPath, "# 🚀 Star Citizen Flugbuch (Playnite Companion)\n\n*Noch keine Flugberichte erfasst.*\n", System.Text.Encoding.UTF8);
+                    }
+                }
+                Process.Start(new ProcessStartInfo(logPath) { UseShellExecute = true });
+            }
+            catch (Exception ex)
+            {
+                _api.Dialogs.ShowErrorMessage("Fehler beim Öffnen des Flugbuchs: " + ex.Message, "Flugbuch Fehler");
+            }
         }
 
         private async Task LoadRsiStatusAsync()
