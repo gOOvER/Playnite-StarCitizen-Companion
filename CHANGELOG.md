@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.0.0] - 2026-10-06
+
+### Changed
+- Production release 1.0.0 milestone.
+- Modernized and optimized flight debriefing storage, sidebar widgets, and telemetry handlers.
+- Updated PlayniteSDK dependency to 6.18.0.
+- Synchronized package release with playnite.goover.dev ecosystem.
+
 ## [0.1.0] - 2026-10-02
 
 ### Added
